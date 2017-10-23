@@ -2,6 +2,8 @@
 
 using namespace std;
 
+void heapifyDown(int index, int* arr, int length);
+
 void swap(int *x, int *y)
 {
 	//&x is the address of x, *x is the value of the variable whose address is in x
@@ -123,8 +125,48 @@ public:
 		cout << '\n';
 	}
 
+	void makeHeap(int *arr, int length)
+	{
+		for (int i = length/2; i < 0; --i)
+		{
+			
+		}
+	}
 
 };
+
+int leftChild(int index) {return (2*index)+1;}
+int rightChild(int index) {return (2*index)+2;}
+
+void heapifyDown(int index, int* arr, int length)
+{
+	int l = leftChild(index);
+	int r = rightChild(index);
+	int smallest = index;
+
+	if(arr[l] < arr[r] && l <= length)
+	{
+		smallest = l;
+	}
+	if(arr[r] < arr[index] && r <= length)
+	{
+		smallest = r;
+	}
+	if(smallest != index)
+	{
+		swap(&arr[index], &arr[smallest]);
+		heapifyDown(smallest, arr, length); 
+	}
+}
+
+void makeHeap(int *arr, int length)
+{	
+	for (int i = 0; i < length/2-1; ++i)
+	{
+		heapifyDown(i, arr, length);
+		//cout << "Here" << endl;
+	}
+}
 
 int main()
 {
@@ -137,11 +179,19 @@ int main()
 	h.insertKey(1);
 	h.insertKey(17);
 	h.printHeap();
-	h.decreaseKey(4, 4);
-	cout << h.extractMin() << endl;
-	h.printHeap();
-	h.deleteKey(2);
-	h.printHeap();
+	//h.decreaseKey(4, 4);
+	//cout << h.extractMin() << endl;
+	//h.printHeap();
+	//h.deleteKey(2);
+	//h.printHeap();
+	int arr[] = {17, 1, 3, 2, 7};//, 12, 23, 67, 8};
+	makeHeap(arr, 5);
+
+	for (int i = 0; i < 5; ++i)
+	{
+		cout << arr[i] << ' ';
+	}
+	cout << '\n';
 }
 
 
