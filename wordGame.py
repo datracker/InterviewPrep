@@ -1,3 +1,5 @@
+"""crack for the android Word Blocks game :D"""
+
 from itertools import permutations
 import enchant
 s,n = raw_input().split()
