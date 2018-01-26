@@ -22,8 +22,9 @@ public:
 		root = newNode(1);
 		root->left = newNode(2);
     	root->right = newNode(3);
+    	//root->right->right = newNode(6);
     	root->left->left = newNode(4);
-    	root->left->right = newNode(5);
+    	root->left->right= newNode(5);
     	//cout << root->data << root->left->data 
     	//<< root->right->data << root->left->left->data << root->left->right->data <<endl;
 	}
