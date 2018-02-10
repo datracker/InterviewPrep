@@ -1,8 +1,8 @@
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x;
+        self.next = None;
 
 class Solution(object):
     def reverseKGroup(self, head, k):
@@ -11,33 +11,45 @@ class Solution(object):
         :type k: int
         :rtype: ListNode
         """
-        if k == 1: return head
+        if k == 1 or head == None: return head
         curr = head
-        dummy = head
-        for i in xrange(k-1):
-        	if not curr.next:
-        		curr = curr.next
-        curr = self.reverseNodes(dummy, k)
-        curr = curr.next
-        self.reverseKGroup(curr, k)
+        for i in range(k-1):
+            if curr.next:
+                curr = curr.next
+            else:
+                return head
+        prev = head
+        curr = prev.next
+        for i in range(k-1):
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        head.next = self.reverseKGroup(curr, k)
+        return prev
+
+    def createLinkedList(self, aList):
+        curr = ListNode(aList.pop(0))
+        head = curr
+        while(aList):
+            curr.next = ListNode(aList.pop(0))
+            curr = curr.next
         return head
 
-    def reverseNodes(self, head, k):
-    	if k == 2:
-    		prev = head
-    		curr = head.next
-    		prev.next = curr.next
-    		curr.next = prev
-    		return curr
+    def printLinkedList(self, head):
+        curr = head
+        while curr:
+            print curr.val
+            curr = curr.next    
 
-    	else if k > 2:
-    		prev = head
-    		curr = prev.next
-    		nextNode = curr.next
-    		for i in range(k-2):
-    			curr.next = prev
-    			prev = curr
-    			curr = nextNode
-    			nextNode = nextNode.next
-    		head.next = curr.next
-    		return curr
+def main():
+    aList = [1,2,3,4,5,6,7]
+    sol = Solution()
+    head = sol.createLinkedList(aList)
+    sol.printLinkedList(head)
+    print '\n'
+    newHead = sol.reverseKGroup(head, 100)
+    sol.printLinkedList(newHead)
+
+if __name__ == '__main__':
+    main()          
